@@ -1,16 +1,32 @@
-import React, { useState } from "react";
-import JobList from "./components/JobList";
+import React, { useEffect, useState } from "react";
+import { getJobs } from "./api";
 import JobForm from "./components/JobForm";
+import JobList from "./components/JobList";
+import AppNavbar from "./components/Navbar";
 
 function App() {
-  const [jobsUpdated, setJobsUpdated] = useState(false);
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const data = await getJobs();
+      setJobs(data);
+    };
+    fetchJobs();
+  }, []);
+
+  const handleJobAdded = (job) => {
+    setJobs([...jobs, job]);
+  };
 
   return (
-    <div>
-      <h1>Job Tracker</h1>
-      <JobForm onJobAdded={() => setJobsUpdated(!jobsUpdated)} />
-      <JobList key={jobsUpdated} />
-    </div>
+    <>
+      <AppNavbar />
+      <div className="container mt-4">
+        <JobForm onJobAdded={handleJobAdded} />
+        <JobList jobs={jobs} />
+      </div>
+    </>
   );
 }
 
