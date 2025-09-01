@@ -3,6 +3,7 @@ import { getJobs } from "./api";
 import JobForm from "./components/JobForm";
 import JobList from "./components/JobList";
 import AppNavbar from "./components/Navbar";
+import EditJobForm from "./components/EditJobForm";
 
 function App() {
   const [jobs, setJobs] = useState([]);

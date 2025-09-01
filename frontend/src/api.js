@@ -13,3 +13,12 @@ export const createJob = async (job) => {
   });
   return response.json();
 };
+
+export const updateJob = async(id, updatedJob) => {
+    const response = await fetch(`${API_URL}${id}/`, {
+        method: "PUT",
+        headers: {"Content-Type" : "application/json"},
+        body : JSON.stringify(updateJob),
+    });
+    return response.json()
+}
